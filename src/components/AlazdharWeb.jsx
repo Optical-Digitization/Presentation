@@ -51,7 +51,7 @@ const SiteAnalysis = () => {
         <div className="max-w-6xl mx-auto">
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-red-100 to-orange-100 px-6 py-3 rounded-full ">
             <AlertTriangle className="text-red-600" size={24} />
-            <span className="font-bold text-gray-800">تحليل احترافي من OPTICAL DIGITIZATION</span>
+            <span className="font-bold text-gray-800">تحليل  من OPTICAL DIGITIZATION</span>
           </div>  
         </div>
       </section>
