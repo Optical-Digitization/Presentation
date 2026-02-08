@@ -17,78 +17,81 @@ import {
   Clock,
   Terminal
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const IntegrationScenariosSection = () => {
+  const { t } = useTranslation();
+  
   // سيناريوهات الاتصال بين Frontend و Backend
   const scenarios = [
     {
       id: 1,
-      title: "تسجيل الدخول والمصادقة",
+      title: t('loginAuthentication'),
       frontend: "React Component",
       backend: "PHP Auth API",
       process: [
-        "إدخال بيانات المستخدم في نموذج React",
-        "إرسال طلب POST إلى API PHP",
-        "التحقق من البيانات في قاعدة البيانات",
-        "إنشاء JWT Token",
-        "إرسال الاستجابة للفرونت إند",
-        "تخزين Token في Local Storage"
+        t('enterUserDataReactForm'),
+        t('sendPOSTRequestPHPAPI'),
+        t('verifyDataDatabase'),
+        t('createJWTToken'),
+        t('sendResponseFrontend'),
+        t('storeTokenLocalStorage')
       ],
-      technologies: ["JWT", "REST API", "Session Management", "CORS"],
+      technologies: ["JWT", "REST API", t('sessionManagement'), "CORS"],
       icon: <Shield />,
       color: "from-blue-500 to-cyan-500"
     },
     {
       id: 2,
-      title: "جلب قائمة الدورات مع الفلترة",
+      title: t('fetchCoursesFiltering'),
       frontend: "Courses Filter Component",
       backend: "PHP Query Builder",
       process: [
-        "تحديد معايير الفلترة من الواجهة",
-        "بناء query ديناميكي في React",
-        "إرسال GET request مع query parameters",
-        "معالجة الفلترة في PHP مع prepared statements",
-        "جلب البيانات من MySQL",
-        "إرجاع النتائج كـ JSON",
-        "عرض البيانات مع React State"
+        t('defineFilterCriteriaInterface'),
+        t('buildDynamicQueryReact'),
+        t('sendGETRequestQueryParams'),
+        t('processFilteringPHPPrepared'),
+        t('fetchDataMySQL'),
+        t('returnResultsJSON'),
+        t('displayDataReactState')
       ],
-      technologies: ["React Query", "Axios", "MySQL", "Pagination"],
+      technologies: ["React Query", "Axios", "MySQL", t('pagination')],
       icon: <Filter />,
       color: "from-purple-500 to-pink-500"
     },
     {
       id: 3,
-      title: "رفع ملفات وإدارة المحتوى",
+      title: t('uploadFilesContentManagement'),
       frontend: "File Upload Component",
       backend: "PHP File Handler",
       process: [
-        "اختيار الملف من واجهة React",
-        "تحويل الملف إلى FormData",
-        "إرسال POST request مع file data",
-        "التحقق من نوع وحجم الملف في PHP",
-        "تخزين الملف في server أو cloud storage",
-        "حفظ رابط الملف في قاعدة البيانات",
-        "إرجاع رابط الملف للعرض"
+        t('selectFileReactInterface'),
+        t('convertFileFormData'),
+        t('sendPOSTRequestFileData'),
+        t('verifyFileTypeSizePHP'),
+        t('storeFileServerCloud'),
+        t('saveFileLinkDatabase'),
+        t('returnFileLinkDisplay')
       ],
-      technologies: ["FormData", "Cloudinary/S3", "File Validation", "Progress Tracking"],
+      technologies: ["FormData", "Cloudinary/S3", t('fileValidation'), t('progressTracking')],
       icon: <Cloud />,
       color: "from-green-500 to-emerald-500"
     },
     {
       id: 4,
-      title: "المعاملات المالية والدفع",
+      title: t('financialTransactionsPayment'),
       frontend: "Payment Gateway Component",
       backend: "PHP Payment Processor",
       process: [
-        "إدخال بيانات الدفع في واجهة آمنة",
-        "تشفير البيانات في الفرونت إند",
-        "إرسال طلب آمن لـ Payment Gateway",
-        "معالجة الدفع في PHP مع مكتبات خاصة",
-        "تحديث حالة الطلب في قاعدة البيانات",
-        "إرسال إشعار للمستخدم",
-        "تسجيل المعاملة في سجلات النظام"
+        t('enterPaymentDataSecure'),
+        t('encryptDataFrontend'),
+        t('sendSecureRequestGateway'),
+        t('processPaymentPHPLibraries'),
+        t('updateOrderStatusDatabase'),
+        t('sendNotificationUser'),
+        t('recordTransactionLogs')
       ],
-      technologies: ["SSL/TLS", "Payment APIs", "Encryption", "Webhooks"],
+      technologies: ["SSL/TLS", t('paymentAPIs'), t('encryption'), "Webhooks"],
       icon: <Zap />,
       color: "from-orange-500 to-red-500"
     }
@@ -97,75 +100,75 @@ const IntegrationScenariosSection = () => {
   // أنواع الاتصال والتقنيات
   const connectionTypes = [
     {
-      name: "RESTful APIs",
-      description: "الاتصال القياسي باستخدام HTTP methods",
-      useCase: "معظم العمليات CRUD",
+      name: t('restfulAPIs'),
+      description: t('standardHTTPCommunication'),
+      useCase: t('mostCRUDOperations'),
       icon: <RefreshCw />,
-      pros: ["سهل الفهم", "قابل للتوسع", "مستقل عن اللغة"],
-      cons: ["Over-fetching محتمل", "متعدد الطلبات"]
+      pros: [t('easyUnderstand'), t('scalable'), t('languageIndependent')],
+      cons: [t('potentialOverFetching'), t('multipleRequests')]
     },
     {
       name: "WebSocket",
-      description: "اتصال ثنائي الاتجاه في الوقت الحقيقي",
-      useCase: "المحادثات الحية - الإشعارات الفورية",
+      description: t('bidirectionalRealTime'),
+      useCase: t('liveChatsInstantNotifications'),
       icon: <GitBranch />,
-      pros: ["اتصال مستمر", "وقت حقيقي", "كفاءة عالية"],
-      cons: ["تعقيد أعلى", "يتطلب إدارة حالة"]
+      pros: [t('persistentConnection'), t('realTime'), t('highEfficiency')],
+      cons: [t('higherComplexity'), t('requiresStateManagement')]
     },
     {
       name: "GraphQL",
-      description: "لغة استعلام أكثر مرونة للبيانات",
-      useCase: "التطبيقات المعقدة ذات البيانات المتنوعة",
+      description: t('flexibleQueryLanguage'),
+      useCase: t('complexAppsDiverseData'),
       icon: <Workflow />,
-      pros: ["طلب بيانات دقيق", "نقطة نهاية واحدة", "نوعية البيانات قوية"],
-      cons: ["منحنى تعليمي", "يتطلب إعداد متقدم"]
+      pros: [t('preciseDataRequests'), t('singleEndpoint'), t('strongDataTyping')],
+      cons: [t('learningCurve'), t('requiresAdvancedSetup')]
     }
   ];
 
   // حالات الاستجابة ومعالجتها
   const responseHandling = [
     {
-      status: "Success (200)",
-      action: "عرض البيانات للمستخدم",
+      status: t('success200'),
+      action: t('displayDataUser'),
       component: "SuccessNotification",
-      example: "عرض قائمة الدورات بنجاح"
+      example: t('displayCoursesSuccess')
     },
     {
-      status: "Created (201)",
-      action: "توجيه المستخدم للصفحة الجديدة",
+      status: t('created201'),
+      action: t('redirectUserNewPage'),
       component: "RedirectComponent",
-      example: "بعد إنشاء حساب جديد"
+      example: t('afterNewAccountCreation')
     },
     {
-      status: "Bad Request (400)",
-      action: "عرض رسائل الخطأ في النموذج",
+      status: t('badRequest400'),
+      action: t('showErrorMessagesForm'),
       component: "ErrorMessages",
-      example: "بيانات تسجيل دخول غير صحيحة"
+      example: t('incorrectLoginData')
     },
     {
-      status: "Unauthorized (401)",
-      action: "تسجيل خروج وتوجيه لصفحة تسجيل الدخول",
+      status: t('unauthorized401'),
+      action: t('logoutRedirectLogin'),
       component: "AuthRedirect",
-      example: "انتهت صلاحية الجلسة"
+      example: t('sessionExpired')
     },
     {
-      status: "Server Error (500)",
-      action: "عرض صفحة خطأ مع إمكانية إعادة المحاولة",
+      status: t('serverError500'),
+      action: t('showErrorPageRetry'),
       component: "ErrorBoundary",
-      example: "مشكلة في الخادم"
+      example: t('serverProblem')
     }
   ];
 
   // أفضل الممارسات
   const bestPractices = [
-    "استخدام axios interceptors للتحكم في الطلبات",
-    "تنفيذ retry logic للطلبات الفاشلة",
-    "تنفيذ request/response transformers",
-    "استخدام React Query للـ state management",
-    "تنفيذ proper error boundaries",
-    "إضافة loading states لكل عملية",
-    "تحسين الـ caching باستخدام Redis",
-    "استخدام queue system للمهام الثقيلة"
+    t('useAxiosInterceptors'),
+    t('implementRetryLogic'),
+    t('implementTransformers'),
+    t('useReactQueryState'),
+    t('implementErrorBoundaries'),
+    t('addLoadingStates'),
+    t('optimizeCachingRedis'),
+    t('useQueueSystem')
   ];
 
   return (
@@ -176,20 +179,20 @@ const IntegrationScenariosSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-full mb-6">
             <ArrowRightLeft />
-            <span className="font-bold">تفاعل الفرونت إند مع الباك إند</span>
+            <span className="font-bold">{t('frontendBackendInteraction')}</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">
-            كيف يتواصل React مع PHP في منصتنا؟
+            {t('howReactCommunicatesPHP')}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            استكشاف آليات الاتصال، سيناريوهات التفاعل، ومعالجة البيانات بين واجهة React والخلفية PHP
+            {t('exploreCommunicationMechanisms')}
           </p>
         </div>
 
         {/* مخطط التواصل العام */}
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-16 border border-gray-200">
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-            مخطط التواصل بين الطبقات
+            {t('communicationLayersDiagram')}
           </h2>
           <div className="relative">
             {/* خط الاتصال */}
@@ -205,11 +208,11 @@ const IntegrationScenariosSection = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-blue-700">React Frontend</h3>
-                    <p className="text-blue-600">Single Page Application</p>
+                    <p className="text-blue-600">{t('singlePageApplication')}</p>
                   </div>
                 </div>
                 <ul className="space-y-3">
-                  {['Components', 'State Management', 'User Interface', 'Client-side Logic'].map((item, idx) => (
+                  {[t('components'), t('stateManagement'), t('userInterface'), t('clientSideLogic')].map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3">
                       <CheckCircle className="text-green-500" size={20} />
                       <span>{item}</span>
@@ -226,11 +229,11 @@ const IntegrationScenariosSection = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-purple-700">API Layer</h3>
-                    <p className="text-purple-600">RESTful Endpoints</p>
+                    <p className="text-purple-600">{t('restfulEndpoints')}</p>
                   </div>
                 </div>
                 <ul className="space-y-3">
-                  {['REST APIs', 'Authentication', 'Rate Limiting', 'CORS Handling'].map((item, idx) => (
+                  {[t('restAPIs'), t('authentication'), t('rateLimiting'), t('corsHandling')].map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3">
                       <CheckCircle className="text-green-500" size={20} />
                       <span>{item}</span>
@@ -247,11 +250,11 @@ const IntegrationScenariosSection = () => {
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold text-green-700">PHP Backend</h3>
-                    <p className="text-green-600">Business Logic & Database</p>
+                    <p className="text-green-600">{t('businessLogicDatabase')}</p>
                   </div>
                 </div>
                 <ul className="space-y-3">
-                  {['Business Logic', 'Database Operations', 'File Processing', 'Server-side Validation'].map((item, idx) => (
+                  {[t('businessLogic'), t('databaseOperations'), t('fileProcessing'), t('serverSideValidation')].map((item, idx) => (
                     <li key={idx} className="flex items-center gap-3">
                       <CheckCircle className="text-green-500" size={20} />
                       <span>{item}</span>
@@ -263,11 +266,10 @@ const IntegrationScenariosSection = () => {
           </div>
         </div>
 
-
         {/* معالجة الاستجابات */}
         <div className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
-            معالجة حالات الاستجابة
+            {t('responseStatusHandling')}
           </h2>
           <div className="grid md:grid-cols-5 gap-6">
             {responseHandling.map((response, idx) => (
@@ -284,36 +286,34 @@ const IntegrationScenariosSection = () => {
                 <h4 className="font-bold text-lg mb-3">{response.action}</h4>
                 <p className="text-gray-600 text-sm mb-4">{response.example}</p>
                 <div className="text-blue-600 text-sm font-medium">
-                  Component: {response.component}
+                  {t('component')}: {response.component}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-    
-
         {/* خاتمة */}
         <div className="mt-16 text-center">
           <h3 className="text-2xl font-bold mb-6 text-gray-800">
-            لماذا هذا النمط من التواصل؟
+            {t('whyThisCommunicationPattern')}
           </h3>
           <div className="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
             <div className="grid md:grid-cols-3 gap-6">
               <div className="text-center p-6">
                 <Zap className="mx-auto mb-4 text-yellow-500" size={32} />
-                <h4 className="font-bold text-lg mb-2">أداء فائق</h4>
-                <p className="text-gray-600">طلبات موازية وتحسين في السرعة</p>
+                <h4 className="font-bold text-lg mb-2">{t('superiorPerformance')}</h4>
+                <p className="text-gray-600">{t('parallelRequestsSpeed')}</p>
               </div>
               <div className="text-center p-6">
                 <Shield className="mx-auto mb-4 text-green-500" size={32} />
-                <h4 className="font-bold text-lg mb-2">أمان متقدم</h4>
-                <p className="text-gray-600">تشفير وتحقق في كل طبقة</p>
+                <h4 className="font-bold text-lg mb-2">{t('advancedSecurity')}</h4>
+                <p className="text-gray-600">{t('encryptionVerificationLayers')}</p>
               </div>
               <div className="text-center p-6">
                 <RefreshCw className="mx-auto mb-4 text-blue-500" size={32} />
-                <h4 className="font-bold text-lg mb-2">قابلية التوسع</h4>
-                <p className="text-gray-600">بنية مرنة للنمو والتطور</p>
+                <h4 className="font-bold text-lg mb-2">{t('scalability')}</h4>
+                <p className="text-gray-600">{t('flexibleArchitectureGrowth')}</p>
               </div>
             </div>
           </div>

@@ -20,222 +20,225 @@ import {
   ChevronsLeft,
   ChevronsRight
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ComparisonSection = () => {
+  const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 2;
+  
   const comparisonData = [
     {
       id: 1,
-      category: "التصميم والواجهة",
+      category: t('designInterface'),
       icon: <Layout />,
       oldSite: {
-        description: "تصميم تقليدي ثابت",
+        description: t('traditionalDesign'),
         features: [
-          "ألوان تقليدية بدون تدرجات",
-          "تصميم غير تفاعلي",
-          "صور ثابتة بدون حركة",
-          "تخطيط قديم الطراز"
+          t('traditionalColorsNoGradients'),
+          t('nonInteractiveDesign'),
+          t('staticImagesNoAnimation'),
+          t('oldStyleLayout')
         ],
         rating: 3
       },
       newSite: {
-        description: "تصميم عصري متطور",
+        description: t('modernDesign'),
         features: [
-          "تدرجات لونية حديثة (Gradients)",
-          "تفاعلات حركية متقدمة",
-          "خلفيات متحركة ديناميكية",
-          "تصميم مينيليست وأنيق"
+          t('modernColorGradients'),
+          t('advancedMotionInteractions'),
+          t('dynamicMovingBackgrounds'),
+          t('minimalistElegantDesign')
         ],
         rating: 10
       },
-      improvement: "تحسين بنسبة 233% في الجاذبية البصرية"
+      improvement: t('improvementPercentage', { percentage: 233, category: t('visualAppeal') })
     },
     {
       id: 2,
-      category: "التفاعل مع المستخدم",
+      category: t('userInteraction'),
       icon: <Users />,
       oldSite: {
-        description: "تفاعل أحادي الاتجاه",
+        description: t('oneWayInteraction'),
         features: [
-          "عدم وجود تأثيرات hover",
-          "لا توجد micro-interactions",
-          "تجربة مستخدم سلبية",
-          "تنقل بطيء وغير سلس"
+          t('noHoverEffects'),
+          t('noMicroInteractions'),
+          t('passiveUserExperience'),
+          t('slowClunkyNavigation')
         ],
         rating: 2
       },
       newSite: {
-        description: "تفاعل ديناميكي وممتع",
+        description: t('dynamicFunInteraction'),
         features: [
-          "Hover effects متقدمة",
-          "Micro-interactions في كل مكان",
-          "تجربة مستخدم تفاعلية",
-          "تنقل سلس وسريع"
+          t('advancedHoverEffects'),
+          t('microInteractionsEverywhere'),
+          t('interactiveUserExperience'),
+          t('smoothFastNavigation')
         ],
         rating: 10
       },
-      improvement: "زيادة 400% في تفاعل المستخدم"
+      improvement: t('increasePercentage', { percentage: 400, metric: t('userInteraction') })
     },
     {
       id: 3,
-      category: "الأداء والسرعة",
+      category: t('performanceSpeed'),
       icon: <Zap />,
       oldSite: {
-        description: "أداء بطيء ومحدود",
+        description: t('slowLimitedPerformance'),
         features: [
-          "زمن تحميل 5-8 ثواني",
-          "لا يوجد lazy loading",
-          "تحميل كامل الصفحة مرة واحدة",
-          "استهلاك عالي للموارد"
+          t('loadTime5to8Seconds'),
+          t('noLazyLoading'),
+          t('fullPageLoadAtOnce'),
+          t('highResourceConsumption')
         ],
         rating: 3
       },
       newSite: {
-        description: "أداء فائق وسريع",
+        description: t('superFastPerformance'),
         features: [
-          "زمن تحميل أقل من 1 ثانية",
-          "Lazy loading متقدم",
-          "Code splitting ذكي",
-          "تحسينات Core Web Vitals"
+          t('loadTimeLessThan1Second'),
+          t('advancedLazyLoading'),
+          t('smartCodeSplitting'),
+          t('coreWebVitalsOptimizations')
         ],
         rating: 10
       },
-      improvement: "تحسن 500% في سرعة التحميل"
+      improvement: t('improvementPercentage', { percentage: 500, category: t('loadSpeed') })
     },
     {
       id: 4,
-      category: "التوافق مع المحمول",
+      category: t('mobileCompatibility'),
       icon: <Smartphone />,
       oldSite: {
-        description: "غير متجاوب",
+        description: t('nonResponsive'),
         features: [
-          "تصميم ثابت للمكتب فقط",
-          "تلف المحتوى على الشاشات الصغيرة",
-          "أزرار غير قابلة للنقر",
-          "تجربة مستخدم سيئة على الموبايل"
+          t('desktopOnlyFixedDesign'),
+          t('contentBreakSmallScreens'),
+          t('unclickableButtons'),
+          t('poorMobileUserExperience')
         ],
         rating: 2
       },
       newSite: {
-        description: "تصميم متجاوب كامل",
+        description: t('fullyResponsiveDesign'),
         features: [
-          "Mobile-first design",
-          "تكيف ذكي مع جميع الشاشات",
-          "تحسين تجربة اللمس",
-          "تصميم متكامل مع جميع الأجهزة"
+          t('mobileFirstDesign'),
+          t('smartAdaptationAllScreens'),
+          t('touchExperienceOptimization'),
+          t('integratedDesignAllDevices')
         ],
         rating: 10
       },
-      improvement: "تحسين 400% في تجربة الموبايل"
+      improvement: t('improvementPercentage', { percentage: 400, category: t('mobileExperience') })
     },
     {
       id: 5,
-      category: "التكامل مع الأنظمة",
+      category: t('systemIntegration'),
       icon: <GitMerge />,
       oldSite: {
-        description: "نظام معزول",
+        description: t('isolatedSystem'),
         features: [
-          "لا يوجد تكامل مع LMS",
-          "لا يوجد تكامل مع ERP",
-          "إدارة يدوية للبيانات",
-          "تضارب في المعلومات"
+          t('noLMSIntegration'),
+          t('noERPIntegration'),
+          t('manualDataManagement'),
+          t('informationConflict')
         ],
         rating: 1
       },
       newSite: {
-        description: "نظام متكامل بالكامل",
+        description: t('fullyIntegratedSystem'),
         features: [
-          "تكامل كامل مع جميع أنظمة LMS",
-          "ربط مباشر مع أنظمة ERP",
-          "لوحة تحكم موحدة واحدة",
-          "مزامنة فورية للبيانات"
+          t('fullIntegrationAllLMS'),
+          t('directConnectionERP'),
+          t('unifiedControlPanel'),
+          t('instantDataSync')
         ],
         rating: 10
       },
-      improvement: "تكامل 10 أنظمة مختلفة في منصة واحدة"
+      improvement: t('integrationSystems', { count: 10 })
     },
     {
       id: 6,
-      category: "تحسين محركات البحث",
+      category: t('seo'),
       icon: <Search />,
       oldSite: {
-        description: "غير محسن للـ SEO",
+        description: t('notOptimizedSEO'),
         features: [
-          "هيكل HTML غير صحيح",
-          "صور بدون alt tags",
-          "محتوى غير قابل للفهرسة",
-          "سرعة تحميل ضعيفة"
+          t('incorrectHTMLStructure'),
+          t('imagesNoAltTags'),
+          t('nonIndexableContent'),
+          t('poorLoadSpeed')
         ],
         rating: 2
       },
       newSite: {
-        description: "محسن بالكامل للـ SEO",
+        description: t('fullyOptimizedSEO'),
         features: [
-          "هيكل HTML5 صحيح",
-          "تحسينات meta tags ديناميكية",
-          "محتوى قابل للفهرسة بالكامل",
-          "سرعة فائقة تؤثر إيجابياً على الترتيب"
+          t('correctHTML5Structure'),
+          t('dynamicMetaTagsOptimization'),
+          t('fullyIndexableContent'),
+          t('superSpeedPositiveRanking')
         ],
         rating: 10
       },
-      improvement: "تحسن 400% في نتائج البحث"
+      improvement: t('improvementPercentage', { percentage: 400, category: t('searchResults') })
     },
     {
       id: 7,
-      category: "تجربة المستخدم الشاملة",
+      category: t('userExperience'),
       icon: <TrendingUp />,
       oldSite: {
-        description: "تجربة مستخدم معقدة",
+        description: t('complexUserExperience'),
         features: [
-          "تشتت في المحتوى",
-          "صعوبة في إيجاد المعلومات",
-          "عملية التسجيل معقدة",
-          "واجهة غير بديهية"
+          t('contentDistraction'),
+          t('difficultyFindingInformation'),
+          t('complicatedRegistrationProcess'),
+          t('nonIntuitiveInterface')
         ],
         rating: 3
       },
       newSite: {
-        description: "تجربة مستخدم استثنائية",
+        description: t('exceptionalUserExperience'),
         features: [
-          "تصميم بديهي وسهل الاستخدام",
-          "تنظيم محكم للمحتوى",
-          "عملية تسجيل مبسطة",
-          "دليل تفاعلي للمستخدمين الجدد"
+          t('intuitiveEasyToUseDesign'),
+          t('organizedContent'),
+          t('simplifiedRegistrationProcess'),
+          t('interactiveGuideNewUsers')
         ],
         rating: 10
       },
-      improvement: "زيادة 233% في رضا المستخدمين"
+      improvement: t('increasePercentage', { percentage: 233, metric: t('userSatisfaction') })
     },
     {
       id: 8,
-      category: "الوظائف والميزات",
+      category: t('featuresFunctions'),
       icon: <BarChart />,
       oldSite: {
-        description: "وظائف أساسية محدودة",
+        description: t('limitedBasicFunctions'),
         features: [
-          "إدارة دورات أساسية فقط",
-          "لا يوجد نظام توظيف",
-          "لا يوجد فلتر متقدم",
-          "لا يوجد لوحة تحكم للمدرسين"
+          t('basicCourseManagementOnly'),
+          t('noRecruitmentSystem'),
+          t('noAdvancedFilter'),
+          t('noTeachersControlPanel')
         ],
         rating: 3
       },
       newSite: {
-        description: "منصة متكاملة متعددة الوظائف",
+        description: t('integratedMultiFunctionPlatform'),
         features: [
-          "نظام دورات متكامل مع فلتر ذكي",
-          "منصة توظيف متكاملة",
-          "لوحات تحكم متخصصة لكل دور",
-          "نظام إعلانات متطور"
+          t('integratedCoursesSmartFilter'),
+          t('integratedRecruitmentPlatform'),
+          t('specializedControlPanelsEachRole'),
+          t('advancedAdSystem')
         ],
         rating: 10
       },
-      improvement: "زيادة 300% في عدد الوظائف المتاحة"
+      improvement: t('increasePercentage', { percentage: 300, metric: t('availableFunctions') })
     }
   ];
 
-  // حساب Pagination
+  // Pagination
   const totalItems = comparisonData.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -243,10 +246,9 @@ const ComparisonSection = () => {
   const currentItems = comparisonData.slice(startIndex, endIndex);
   const currentCardNumber = currentPage * itemsPerPage;
 
-  // تغيير الصفحة
+  // Change page
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    // Scroll to top of section smoothly
     const section = document.getElementById('comparison-section');
     if (section) {
       window.scrollTo({
@@ -304,98 +306,107 @@ const ComparisonSection = () => {
 
   const techComparison = [
     {
-      aspect: "التقنية المستخدمة",
-      old: "HTML/CSS/JavaScript تقليدي",
-      new: "React + PHP + Tailwind CSS",
-      advantage: "تحديث فوري + أداء فائق + صيانة سهلة"
+      aspect: t('technologyUsed'),
+      old: t('traditionalHTMLCSSJS'),
+      new: t('reactPHPTailwind'),
+      advantage: t('instantUpdatePerformanceMaintenance')
     },
     {
-      aspect: "إدارة الحالة",
-      old: "No state management",
-      new: "Advanced state management with Context/Redux",
-      advantage: "اتساق البيانات + تحديثات فورية + تجربة أفضل"
+      aspect: t('stateManagement'),
+      old: t('noStateManagement'),
+      new: t('advancedStateManagement'),
+      advantage: t('dataConsistencyInstantUpdatesBetterExperience')
     },
     {
-      aspect: "التحديثات",
-      old: "تحديث يدوي كامل للموقع",
-      new: "تحديثات حية بدون إعادة تحميل",
-      advantage: "استمرارية العمل + تجربة سلسة + وقت أقل"
+      aspect: t('updates'),
+      old: t('manualFullSiteUpdate'),
+      new: t('liveUpdatesNoReload'),
+      advantage: t('workContinuitySmoothExperienceLessTime')
     },
     {
-      aspect: "الأمان",
-      old: "حماية أساسية فقط",
-      new: "حماية متعددة الطبقات مع JWT و encryption",
-      advantage: "حماية متقدمة + بيانات آمنة + توافق مع المعايير"
+      aspect: t('security'),
+      old: t('basicProtectionOnly'),
+      new: t('multiLayerProtection'),
+      advantage: t('advancedProtectionSecureDataStandardsCompliance')
     },
     {
-      aspect: "الصيانة",
-      old: "صعوبة الصيانة والتطوير",
-      new: "هيكل modular سهل الصيانة والتطوير",
-      advantage: "تكاليف أقل + وقت أسرع + قابلية توسع عالية"
+      aspect: t('maintenance'),
+      old: t('difficultMaintenanceDevelopment'),
+      new: t('modularStructureEasyMaintenance'),
+      advantage: t('lowerCostsFasterTimeHighScalability')
     }
   ];
 
-  const PerformanceMetrics = () => (
-    <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-12 border border-blue-100">
-      <h3 className="text-2xl font-bold mb-6 text-center text-gray-800">مقارنة الأداء الفني</h3>
-      <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
-        {[
-          { metric: "سرعة التحميل", old: "5s", new: "0.8s", improvement: "525%" },
-          { metric: "حجم الصفحة", old: "4MB", new: "500KB", improvement: "700%" },
-          { metric: "طلبات HTTP", old: "40+", new: "10-15", improvement: "300%" },
-          { metric: "Core Web Vitals", old: "Poor", new: "Good", improvement: "A+" },
-          { metric: "زمن الاستجابة", old: "300ms", new: "50ms", improvement: "500%" }
-        ].map((item, idx) => (
-          <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border">
-            <div className="text-sm text-gray-500 mb-2">{item.metric}</div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-red-500 line-through">{item.old}</span>
-              <ArrowUpRight className="text-blue-500" />
-              <span className="text-green-600 font-bold">{item.new}</span>
+  const PerformanceMetrics = () => {
+    const { t } = useTranslation();
+    return (
+      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mb-12 border border-blue-100">
+        <h3 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          {t('technicalPerformanceComparison')}
+        </h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {[
+            { metric: t('loadSpeed'), old: "5s", new: "0.8s", improvement: "525%" },
+            { metric: t('pageSize'), old: "4MB", new: "500KB", improvement: "700%" },
+            { metric: t('httpRequests'), old: "40+", new: "10-15", improvement: "300%" },
+            { metric: t('coreWebVitals'), old: t('poor'), new: t('good'), improvement: "A+" },
+            { metric: t('responseTime'), old: "300ms", new: "50ms", improvement: "500%" }
+          ].map((item, idx) => (
+            <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border">
+              <div className="text-sm text-gray-500 mb-2">{item.metric}</div>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-red-500 line-through">{item.old}</span>
+                <ArrowUpRight className="text-blue-500" />
+                <span className="text-green-600 font-bold">{item.new}</span>
+              </div>
+              <div className="text-sm font-medium text-blue-600">
+                {item.improvement} {t('improvement')}
+              </div>
             </div>
-            <div className="text-sm font-medium text-blue-600">{item.improvement} تحسن</div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section id="comparison-section" className="py-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-6">
         
-        {/* العنوان الرئيسي مع أيقونة */}
+        {/* Main title with icon */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full mb-6 shadow-lg">
             <RefreshCw size={24} />
-            <span className="text-xl font-bold">التحول الرقمي الكامل</span>
+            <span className="text-xl font-bold">{t('digitalTransformation')}</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            مقارنة شاملة: الثورة التقنية
+            {t('comprehensiveComparison')}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            من منصة تقليدية إلى نظام تعليمي متكامل يواكب أحدث التقنيات العالمية
+            {t('comparisonSubtitle')}
           </p>
         </div>
 
-        {/* مقارنة الأداء */}
+        {/* Performance comparison */}
         <PerformanceMetrics />
 
-        {/* Pagination Info Bar */}
+        {/* Pagination info bar */}
         <div className="mb-8 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-        
-            
-      
-            
+            <div className="text-gray-700">
+              <span className="font-bold">{t('showingCards')}:</span> {currentCardNumber - 1}-{Math.min(currentCardNumber, totalItems)} {t('of')} {totalItems}
+            </div>
+            <div className="text-gray-700">
+              <span className="font-bold">{t('page')}:</span> {currentPage} {t('of')} {totalPages}
+            </div>
           </div>
         </div>
 
-        {/* بطاقات المقارنة التفاعلية مع Pagination */}
+        {/* Interactive comparison cards with pagination */}
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           {currentItems.map((item) => (
             <div key={item.id} className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300">
-              {/* رأس البطاقة */}
+              {/* Card header */}
               <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -410,26 +421,26 @@ const ComparisonSection = () => {
                 </div>
               </div>
 
-              {/* محتوى البطاقة */}
+              {/* Card content */}
               <div className="p-8">
-                {/* مقارنة التقييم */}
+                {/* Rating comparison */}
                 <div className="flex justify-between items-center mb-8">
                   <div className="text-center">
                     <div className="text-4xl font-bold text-red-400">{item.oldSite.rating}/10</div>
-                    <div className="text-sm text-gray-500 mt-1">الموقع القديم</div>
+                    <div className="text-sm text-gray-500 mt-1">{t('oldSite')}</div>
                   </div>
                   <ArrowUpRight className="text-gray-400" size={32} />
                   <div className="text-center">
                     <div className="text-4xl font-bold text-green-500">{item.newSite.rating}/10</div>
-                    <div className="text-sm text-gray-500 mt-1">الموقع الجديد</div>
+                    <div className="text-sm text-gray-500 mt-1">{t('newSite')}</div>
                   </div>
                 </div>
 
-                {/* الموقع القديم */}
+                {/* Old site */}
                 <div className="mb-8 p-6 bg-red-50 rounded-xl border border-red-100">
                   <div className="flex items-center gap-3 mb-4">
                     <XCircle className="text-red-500" />
-                    <h4 className="font-bold text-lg text-red-700">الموقع القديم</h4>
+                    <h4 className="font-bold text-lg text-red-700">{t('oldSite')}</h4>
                   </div>
                   <p className="text-red-600 mb-4">{item.oldSite.description}</p>
                   <ul className="space-y-2">
@@ -442,11 +453,11 @@ const ComparisonSection = () => {
                   </ul>
                 </div>
 
-                {/* الموقع الجديد */}
+                {/* New site */}
                 <div className="p-6 bg-green-50 rounded-xl border border-green-100">
                   <div className="flex items-center gap-3 mb-4">
                     <CheckCircle className="text-green-500" />
-                    <h4 className="font-bold text-lg text-green-700">الموقع الجديد</h4>
+                    <h4 className="font-bold text-lg text-green-700">{t('newSite')}</h4>
                   </div>
                   <p className="text-green-600 mb-4">{item.newSite.description}</p>
                   <ul className="space-y-2">
@@ -459,7 +470,7 @@ const ComparisonSection = () => {
                   </ul>
                 </div>
 
-                {/* التحسين */}
+                {/* Improvement */}
                 <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-200">
                   <div className="flex items-center gap-3">
                     <TrendingUp className="text-blue-600" />
@@ -471,19 +482,37 @@ const ComparisonSection = () => {
           ))}
         </div>
 
-        {/* Pagination Controls */}
+        {/* Pagination controls */}
         <div className="mb-16">
-          <div className="flex flex-col md:flex-row items-center justify-center ">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            {/* Cards info */}
+            <div className="text-gray-700 hidden md:block">
+              {t('cards')} {currentCardNumber - 1}-{Math.min(currentCardNumber, totalItems)} {t('of')} {totalItems}
+            </div>
             
-       
-            
-            {/* Pagination Buttons */}
+            {/* Pagination buttons */}
             <div className="flex items-center gap-2">
-              {/* First Page Button */}
-           
-           
+              {/* First page button */}
+              <button
+                onClick={goToFirstPage}
+                disabled={currentPage === 1}
+                className="p-2 rounded-lg hover:bg-blue-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                title={t('firstPage')}
+              >
+                <ChevronsLeft className="text-gray-600" size={20} />
+              </button>
               
-              {/* Page Numbers */}
+              {/* Previous page button */}
+              <button
+                onClick={goToPreviousPage}
+                disabled={currentPage === 1}
+                className="p-2 rounded-lg hover:bg-blue-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                title={t('previousPage')}
+              >
+                <ChevronLeft className="text-gray-600" size={20} />
+              </button>
+              
+              {/* Page numbers */}
               <div className="flex items-center gap-1">
                 {getPageNumbers().map((page, idx) => (
                   page === '...' ? (
@@ -508,13 +537,30 @@ const ComparisonSection = () => {
                 ))}
               </div>
               
-            
-        
+              {/* Next page button */}
+              <button
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded-lg hover:bg-blue-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                title={t('nextPage')}
+              >
+                <ChevronRight className="text-gray-600" size={20} />
+              </button>
+              
+              {/* Last page button */}
+              <button
+                onClick={goToLastPage}
+                disabled={currentPage === totalPages}
+                className="p-2 rounded-lg hover:bg-blue-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+                title={t('lastPage')}
+              >
+                <ChevronsRight className="text-gray-600" size={20} />
+              </button>
             </div>
             
-            {/* Page Size Selector (Mobile) */}
+            {/* Page size selector (Mobile) */}
             <div className="md:hidden flex items-center gap-2">
-              <span className="text-gray-700 text-sm">الصفحة:</span>
+              <span className="text-gray-700 text-sm">{t('page')}:</span>
               <select 
                 value={currentPage}
                 onChange={(e) => handlePageChange(Number(e.target.value))}
@@ -530,7 +576,7 @@ const ComparisonSection = () => {
             </div>
           </div>
           
-          {/* Pagination Dots (Mobile View) */}
+          {/* Pagination dots (Mobile view) */}
           <div className="flex justify-center gap-2 mt-6 md:hidden">
             {[...Array(totalPages)].map((_, index) => (
               <button
@@ -548,21 +594,21 @@ const ComparisonSection = () => {
           </div>
         </div>
 
-        {/* مقارنة تقنية متقدمة */}
+        {/* Advanced technical comparison */}
         <div className="bg-white rounded-2xl shadow-xl p-8 mb-16 border border-gray-200">
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">
             <Cpu className="inline-block mr-3 text-blue-500" />
-            مقارنة التقنيات الأساسية
+            {t('technicalComparison')}
           </h2>
           
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead>
                 <tr className="bg-gradient-to-r from-blue-600 to-purple-600">
-                  <th className="px-8 py-4 text-right text-lg font-bold text-white">الجانب التقني</th>
-                  <th className="px-8 py-4 text-right text-lg font-bold text-white">التقنية القديمة</th>
-                  <th className="px-8 py-4 text-right text-lg font-bold text-white">التقنية الجديدة</th>
-                  <th className="px-8 py-4 text-right text-lg font-bold text-white">الميزة التنافسية</th>
+                  <th className="px-8 py-4 text-right text-lg font-bold text-white">{t('technicalAspect')}</th>
+                  <th className="px-8 py-4 text-right text-lg font-bold text-white">{t('oldTechnology')}</th>
+                  <th className="px-8 py-4 text-right text-lg font-bold text-white">{t('newTechnology')}</th>
+                  <th className="px-8 py-4 text-right text-lg font-bold text-white">{t('competitiveAdvantage')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -595,37 +641,37 @@ const ComparisonSection = () => {
           </div>
         </div>
 
-        {/* ملخص النتائج */}
+        {/* Results summary */}
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-10 text-white shadow-2xl">
           <div className="text-center mb-10">
             <Award className="mx-auto mb-6" size={48} />
-            <h2 className="text-3xl font-bold mb-4">النتائج المتوقعة من التحول</h2>
+            <h2 className="text-3xl font-bold mb-4">{t('expectedResults')}</h2>
             <p className="text-xl opacity-90">
-              نقلة نوعية في كل جانب من جوانب المنصة التعليمية
+              {t('qualitativeLeapAllAspects')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { 
-                title: "زيادة التفاعل", 
+                title: t('increaseInteraction'), 
                 value: "300%+", 
-                desc: "زيادة في تفاعل المستخدمين مع المنصة" 
+                desc: t('increaseUserInteraction') 
               },
               { 
-                title: "تحسين الأداء", 
+                title: t('performanceImprovement'), 
                 value: "500%+", 
-                desc: "تحسن في سرعة تحميل الصفحات" 
+                desc: t('improvementPageLoadSpeed') 
               },
               { 
-                title: "توفير الوقت", 
+                title: t('timeSaving'), 
                 value: "70%", 
-                desc: "توفير في وقت إدارة المحتوى والأنظمة" 
+                desc: t('savingContentManagementTime') 
               },
               { 
-                title: "رضا العملاء", 
+                title: t('customerSatisfaction'), 
                 value: "95%", 
-                desc: "معدل رضا متوقع من المستخدمين النهائيين" 
+                desc: t('expectedEndUserSatisfaction') 
               }
             ].map((result, idx) => (
               <div key={idx} className="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
@@ -636,12 +682,12 @@ const ComparisonSection = () => {
             ))}
           </div>
 
-          {/* خاتمة */}
+          {/* Conclusion */}
           <div className="mt-12 pt-8 border-t border-white/20 text-center">
             <div className="inline-flex items-center gap-4 bg-white/10 px-8 py-4 rounded-full">
               <Shield className="text-yellow-300" />
               <span className="text-lg">
-                <span className="font-bold">الخلاصة:</span> تحول كامل من منصة تقليدية إلى نظام تعليمي ذكي متكامل
+                <span className="font-bold">{t('conclusion')}:</span> {t('conclusionText')}
               </span>
             </div>
           </div>

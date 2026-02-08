@@ -4,14 +4,20 @@ import {
   Filter, Globe, BarChart, BookOpen, Bell, Briefcase, Award,
   Server, Link, ChevronRight, CheckCircle, MapPin, TrendingUp,
   UserPlus, Palette, Gauge, Heart, Sparkles, Target, Navigation,
-  Clock, Star, Download, Settings, Menu, X, ArrowRight, Globe as GlobeIcon
+  Clock, Star, Download, Settings, Menu, X, ArrowRight, Globe as GlobeIcon,
+  Languages // إضافة أيقونة اللغة
 } from 'lucide-react';
+import { useLanguage } from "../context/LanguageContext";
+import { useTranslation } from 'react-i18next';
 
-
+// استيراد لوجو موجو
+import LogoMogo from '../assets/logo.png';
 
 // 1. Hero Component
 const HeroSection = () => {
   const [activeTech, setActiveTech] = useState(0);
+  const { lang, toggleLanguage } = useLanguage();
+  const { t } = useTranslation();
   
   const technologies = [
     { name: 'React', color: 'text-blue-600', bg: 'bg-blue-100' },
@@ -28,7 +34,32 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 pt-20">
+      {/* خلفية مع لوجو موجو كـ Watermark */}
       <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
+      <div 
+        className="absolute inset-0 opacity-10 bg-contain bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${LogoMogo})`,
+          backgroundSize: '90% auto',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      ></div>
+      
+      {/* زر تبديل اللغة */}
+      <button
+        onClick={toggleLanguage}
+        className={`fixed top-6 ${lang === "ar" ? "left-6" : "right-6"} z-50 flex items-center gap-2 bg-white/90 backdrop-blur-sm border border-gray-300 rounded-full px-4 py-2 md:px-5 md:py-2.5 text-gray-800 hover:bg-white hover:scale-105 transition-all duration-300 group shadow-lg`}
+        aria-label={t('changeLanguage')}
+      >
+        <Languages size={20} className="group-hover:rotate-180 transition-transform duration-500" />
+        <span className="font-bold text-sm md:text-base">
+          {lang === "ar" ? t('english') : t('arabic')}
+        </span>
+        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-xs font-bold text-white">
+          {lang === "ar" ? "EN" : "AR"}
+        </div>
+      </button>
       
       {/* Animated Background Elements */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
@@ -42,27 +73,23 @@ const HeroSection = () => {
               <div className="inline-flex items-center gap-3 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full mb-8 shadow-sm">
                 <Sparkles className="text-yellow-500" size={20} />
                 <span className="text-sm font-medium text-gray-700">
-                  النظام التعليمي الأكثر تطوراً
+                  {t('mostAdvancedEducationalSystem')}
                 </span>
               </div>
               
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-tight">
-                نحن نعيد تعريف التعليم الرقمي
+                {t('redefiningDigitalEducation')}
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-                منصة متكاملة تجمع بين قوة 
-                <span className="font-bold text-blue-600 mx-2">React</span>، 
-                مرونة 
-                <span className="font-bold text-purple-600 mx-2">PHP</span>، 
-                وسرعة 
+                {t('integratedPlatform')}
+                <span className="font-bold text-blue-600 mx-2">React</span>
+                {t('flexibilityOf')}
+                <span className="font-bold text-purple-600 mx-2">PHP</span>
+                {t('andSpeedOf')}
                 <span className="font-bold text-teal-600 mx-2">Tailwind CSS</span>
-                لتقديم تجربة تعليمية استثنائية
+                {t('exceptionalEducationalExperience')}
               </p>
-              
-             
-              
-              
             </div>
             
             {/* Tech Cards */}
@@ -89,9 +116,9 @@ const HeroSection = () => {
                     <div className={`w-3 h-3 rounded-full ${activeTech === idx ? 'bg-green-500' : 'bg-gray-300'}`}></div>
                   </div>
                   <p className="text-gray-600">
-                    {tech.name === 'React' && 'واجهة مستخدم تفاعلية وسريعة'}
-                    {tech.name === 'PHP' && 'معالجة قوية للبيانات والمنطق الخلفي'}
-                    {tech.name === 'Tailwind CSS' && 'تصميم سريع ومتجاوب مع جميع الشاشات'}
+                    {tech.name === 'React' && t('reactDescription')}
+                    {tech.name === 'PHP' && t('phpDescription')}
+                    {tech.name === 'Tailwind CSS' && t('tailwindDescription')}
                   </p>
                 </div>
               ))}
@@ -106,31 +133,32 @@ const HeroSection = () => {
 // 2. Architecture Section
 const ArchitectureSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const { t } = useTranslation();
 
   const features = [
     { 
       icon: <Cpu />, 
-      title: "Single Page Application", 
-      desc: "تطبيق React أحادي الصفحة بسرعة تحميل فائقة",
-      stats: "سرعة تحميل +200%"
+      title: t('singlePageApplication'), 
+      desc: t('singlePageApplicationDesc'),
+      stats: t('loadingSpeed200')
     },
     { 
       icon: <Server />, 
-      title: "Backend PHP قوي", 
-      desc: "معالجة البيانات والمنطق الخلفي بلغة PHP الموثوقة",
-      stats: "99.9% وقت تشغيل"
+      title: t('strongPHPBackend'), 
+      desc: t('strongPHPBackendDesc'),
+      stats: t('uptime99')
     },
     { 
       icon: <Zap />, 
-      title: "Tailwind CSS", 
-      desc: "تصميم سريع ومتجاوب مع أحدث تقنيات CSS",
-      stats: "تطوير أسرع بنسبة 40%"
+      title: t('tailwindCSS'), 
+      desc: t('tailwindCSSDesc'),
+      stats: t('fasterDevelopment40')
     },
     { 
       icon: <Shield />, 
-      title: "أمان متكامل", 
-      desc: "أنظمة حماية متعددة الطبقات لبيانات المستخدمين",
-      stats: "256-bit تشفير"
+      title: t('integratedSecurity'), 
+      desc: t('integratedSecurityDesc'),
+      stats: t('encryption256')
     }
   ];
 
@@ -140,11 +168,11 @@ const ArchitectureSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-blue-100 text-blue-600 px-6 py-3 rounded-full mb-6">
             <Cpu />
-            <span className="font-bold">هيكل تقني متكامل</span>
+            <span className="font-bold">{t('integratedTechnicalStructure')}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-6 text-gray-800">الهيكل التقني المتكامل للنظام</h2>
+          <h2 className="text-4xl font-bold mb-6 text-gray-800">{t('integratedTechnicalStructureTitle')}</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            تصميم معماري حديث يجمع بين أفضل التقنيات لتقديم تجربة مستخدم استثنائية
+            {t('integratedTechnicalStructureDesc')}
           </p>
         </div>
         
@@ -188,8 +216,8 @@ const ArchitectureSection = () => {
         {/* Architecture Diagram */}
         <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 mt-16">
           <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">هيكلية النظام المتكاملة</h3>
-            <p className="text-gray-600">تدفق البيانات بين واجهة المستخدم والخلفية</p>
+            <h3 className="text-2xl font-bold text-gray-800 mb-3">{t('systemIntegrationStructure')}</h3>
+            <p className="text-gray-600">{t('dataFlowBetweenUIAndBackend')}</p>
           </div>
           
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -197,12 +225,12 @@ const ArchitectureSection = () => {
             <div className="text-center">
               <div className="bg-white p-6 rounded-xl shadow-lg mb-4">
                 <GlobeIcon className="text-blue-600 mx-auto mb-3" size={40} />
-                <h4 className="font-bold text-gray-800">Frontend</h4>
+                <h4 className="font-bold text-gray-800">{t('frontend')}</h4>
                 <p className="text-sm text-gray-600">React + Tailwind</p>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                <span className="text-sm text-gray-600">API Requests</span>
+                <span className="text-sm text-gray-600">{t('apiRequests')}</span>
               </div>
             </div>
             
@@ -211,7 +239,7 @@ const ArchitectureSection = () => {
               <div className="relative">
                 <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 rounded-xl shadow-lg mb-4">
                   <Link className="text-white mx-auto mb-3" size={40} />
-                  <h4 className="font-bold text-white">API Layer</h4>
+                  <h4 className="font-bold text-white">{t('apiLayer')}</h4>
                   <p className="text-sm text-white/90">RESTful APIs</p>
                 </div>
                 <div className="absolute -top-2 -right-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">
@@ -220,7 +248,7 @@ const ArchitectureSection = () => {
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                <span className="text-sm text-gray-600">Data Processing</span>
+                <span className="text-sm text-gray-600">{t('dataProcessing')}</span>
               </div>
             </div>
             
@@ -228,12 +256,12 @@ const ArchitectureSection = () => {
             <div className="text-center">
               <div className="bg-white p-6 rounded-xl shadow-lg mb-4">
                 <Server className="text-purple-600 mx-auto mb-3" size={40} />
-                <h4 className="font-bold text-gray-800">Backend</h4>
+                <h4 className="font-bold text-gray-800">{t('backend')}</h4>
                 <p className="text-sm text-gray-600">PHP + MySQL</p>
               </div>
               <div className="flex items-center gap-2 justify-center">
                 <div className="w-4 h-4 bg-red-500 rounded-full"></div>
-                <span className="text-sm text-gray-600">Database</span>
+                <span className="text-sm text-gray-600">{t('database')}</span>
               </div>
             </div>
           </div>
@@ -246,24 +274,40 @@ const ArchitectureSection = () => {
 // 3. Integration Dashboard
 const IntegrationSection = () => {
   const [activeIntegration, setActiveIntegration] = useState(0);
+  const { t } = useTranslation();
 
   const integrations = [
     { 
-      title: "LMS Integration", 
-      desc: "إدارة كاملة للمقررات والواجبات والاختبارات",
-      features: ["داشبورد مدرسين", "صفحة طلاب مخصصة", "تقييم آلي", "تقارير أداء"],
+      title: t('lmsIntegration'), 
+      desc: t('lmsIntegrationDesc'),
+      features: [
+        t('teachersDashboard'),
+        t('customStudentPage'),
+        t('automaticEvaluation'),
+        t('performanceReports')
+      ],
       color: "from-blue-500 to-cyan-500"
     },
     { 
-      title: "ERP System", 
-      desc: "إدارة الموارد البشرية والمالية والمخزون",
-      features: ["إدارة الرواتب", "التوظيف الإلكتروني", "المخازن", "المشتريات"],
+      title: t('erpSystem'), 
+      desc: t('erpSystemDesc'),
+      features: [
+        t('salaryManagement'),
+        t('electronicEmployment'),
+        t('warehouses'),
+        t('purchases')
+      ],
       color: "from-purple-500 to-pink-500"
     },
     { 
-      title: "Website Management", 
-      desc: "إدارة محتوى الموقع والدورات الإعلانية",
-      features: ["شريط أخبار", "الإعلانات", "مدونة", "الفعاليات"],
+      title: t('websiteManagement'), 
+      desc: t('websiteManagementDesc'),
+      features: [
+        t('newsBar'),
+        t('advertisements'),
+        t('blog'),
+        t('events')
+      ],
       color: "from-green-500 to-emerald-500"
     }
   ];
@@ -274,32 +318,32 @@ const IntegrationSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-blue-100 text-blue-600 px-6 py-3 rounded-full mb-6">
             <Link />
-            <span className="font-bold">تكامل كامل من لوحة تحكم واحدة</span>
+            <span className="font-bold">{t('fullIntegrationFromOneDashboard')}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-6 text-gray-800">وحدة تحكم موحدة لإدارة جميع الأنظمة</h2>
+          <h2 className="text-4xl font-bold mb-6 text-gray-800">{t('unifiedControlPanelForAllSystems')}</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            إدارة LMS، ERP، والموقع الإلكتروني من خلال لوحة تحكم واحدة متكاملة
+            {t('manageLMSERPSiteFromOnePanel')}
           </p>
         </div>
 
-        {/* Integration Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {integrations.map((integration, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveIntegration(idx)}
-              className={`
-                px-6 py-3 rounded-full font-medium transition-all duration-300
-                ${activeIntegration === idx 
-                  ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
-                  : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-500'
-                }
-              `}
-            >
-              {integration.title}
-            </button>
-          ))}
-        </div>
+      {/* Integration Tabs */}
+<div className="flex flex-wrap justify-center gap-4 mb-12">
+  {integrations.map((integration, idx) => (
+    <button
+      key={idx}
+      onClick={() => setActiveIntegration(idx)}
+      className={`
+        px-6 py-3 rounded-full font-medium transition-all duration-300
+        ${activeIntegration === idx 
+          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg' 
+          : 'bg-white text-gray-700 border border-gray-200 hover:border-blue-500'
+        }
+      `}
+    >
+      {integration.title}
+    </button>
+  ))}
+</div>  
 
         {/* Integration Details */}
         <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -334,29 +378,29 @@ const IntegrationSection = () => {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white mb-16">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="mb-6 md:mb-0 md:w-1/2">
-              <h3 className="text-3xl font-bold mb-3">لوحة تحكم رئيسية واحدة</h3>
+              <h3 className="text-3xl font-bold mb-3">{t('oneMainDashboard')}</h3>
               <p className="opacity-90 text-lg mb-6">
-                تحكم كامل في جميع الأنظمة بدون الحاجة للتبديل بين التطبيقات
+                {t('fullControlAllSystems')}
               </p>
               <ul className="space-y-3">
                 <li className="flex items-center gap-2">
                   <CheckCircle className="text-green-300" size={20} />
-                  <span>إحصائيات موحدة من جميع الأنظمة</span>
+                  <span>{t('unifiedStatisticsFromAllSystems')}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="text-green-300" size={20} />
-                  <span>تقارير شاملة ومخصصة</span>
+                  <span>{t('comprehensiveAndCustomReports')}</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle className="text-green-300" size={20} />
-                  <span>إشعارات موحدة من جميع الأقسام</span>
+                  <span>{t('unifiedNotificationsFromAllDepartments')}</span>
                 </li>
               </ul>
             </div>
             <div className="relative">
               <div className="bg-white/20 p-6 rounded-xl backdrop-blur-sm border border-white/30">
                 <div className="grid grid-cols-3 gap-4 mb-4">
-                  {['المستخدمين', 'الدورات', 'المبيعات'].map((stat, idx) => (
+                  {[t('users'), t('courses'), t('sales')].map((stat, idx) => (
                     <div key={idx} className="bg-white/10 p-4 rounded-lg text-center">
                       <div className="text-2xl font-bold">{['1,234', '456', '789'][idx]}</div>
                       <div className="text-sm opacity-80">{stat}</div>
@@ -388,158 +432,154 @@ const FeaturesSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const { t } = useTranslation();
   
-  const itemsPerPage = 6; // عدد العناصر في كل صفحة
+  const itemsPerPage = 6;
   
   const features = [
     {
       icon: <Filter />,
-      title: "نظام فلترة متقدم",
-      desc: "فلترة ذكية للدورات بمعايير متعددة",
+      title: t('advancedFilteringSystem'),
+      desc: t('advancedFilteringSystemDesc'),
       color: "from-blue-500 to-cyan-500",
       category: "ui"
     },
     {
       icon: <Users />,
-      title: "بروفايلات متخصصة",
-      desc: "بروفايلات منفصلة للطلاب، المدرسين، والموظفين مع صلاحيات مخصصة",
+      title: t('specializedProfiles'),
+      desc: t('specializedProfilesDesc'),
       color: "from-purple-500 to-pink-500",
       category: "users"
     },
     {
       icon: <Bell />,
-      title: "شريط أخبار احترافي",
-      desc: "نظام أخبار تفاعلي مع إشعارات فورية وتصنيفات متعددة",
+      title: t('professionalNewsBar'),
+      desc: t('professionalNewsBarDesc'),
       color: "from-green-500 to-emerald-500",
       category: "content"
     },
     {
       icon: <Briefcase />,
-      title: "نظام التوظيف",
-      desc: "منصة توظيف متكاملة مع تقديم الطلبات ومتابعة المرشحين",
+      title: t('employmentSystem'),
+      desc: t('employmentSystemDesc'),
       color: "from-orange-500 to-red-500",
       category: "hr"
     },
     {
       icon: <BookOpen />,
-      title: "إدارة الدورات",
-      desc: "إنشاء وتعديل وإدارة الدورات التعليمية بنظام سهل ومتطور",
+      title: t('courseManagement'),
+      desc: t('courseManagementDesc'),
       color: "from-indigo-500 to-blue-500",
       category: "lms"
     },
     {
       icon: <BarChart />,
-      title: "تقارير وأداء",
-      desc: "لوحات تحكم إحصائية متقدمة لمتابعة الأداء والتحليلات",
+      title: t('reportsAndPerformance'),
+      desc: t('reportsAndPerformanceDesc'),
       color: "from-teal-500 to-green-500",
       category: "analytics"
     },
     {
       icon: <Gauge />,
-      title: "لوحة تحكم موحدة",
-      desc: "تحكم كامل في ERP، LMS، والموقع الإلكتروني من مكان واحد",
+      title: t('unifiedDashboard'),
+      desc: t('unifiedDashboardDesc'),
       color: "from-purple-500 to-pink-500",
       category: "dashboard"
     },
     {
       icon: <Palette />,
-      title: "ثيمات مخصصة",
-      desc: "تصميمات مخصصة للشباب والبنات مع ألوان وتخطيطات مختلفة",
+      title: t('customThemes'),
+      desc: t('customThemesDesc'),
       color: "from-blue-500 to-cyan-500",
       category: "ui"
     },
     {
       icon: <TrendingUp />,
-      title: "إحصائيات متقدمة",
-      desc: "تتبع عدد الطلاب والمقدمين وإحصائيات النمو والتقدم",
+      title: t('advancedStatistics'),
+      desc: t('advancedStatisticsDesc'),
       color: "from-green-500 to-emerald-500",
       category: "analytics"
     },
     {
       icon: <Globe />,
-      title: "دعم متعدد اللغات",
-      desc: "نظام يدعم عدة لغات مع ترجمة ديناميكية",
+      title: t('multilingualSupport'),
+      desc: t('multilingualSupportDesc'),
       color: "from-yellow-500 to-orange-500",
       category: "ui"
     },
     {
       icon: <Award />,
-      title: "نظام الشهادات",
-      desc: "إنشاء وتوزيع الشهادات الإلكترونية المعتمدة",
+      title: t('certificationSystem'),
+      desc: t('certificationSystemDesc'),
       color: "from-red-500 to-pink-500",
       category: "lms"
     },
     {
       icon: <Heart />,
-      title: "تجربة مستخدم محسنة",
-      desc: "واجهة مستخدم بديهية وسهلة الاستخدام",
+      title: t('improvedUserExperience'),
+      desc: t('improvedUserExperienceDesc'),
       color: "from-pink-500 to-rose-500",
       category: "ui"
     },
     {
       icon: <Shield />,
-      title: "نظام أمان متكامل",
-      desc: "حماية متقدمة لبيانات المستخدمين والنظام",
+      title: t('integratedSecuritySystem'),
+      desc: t('integratedSecuritySystemDesc'),
       color: "from-gray-500 to-blue-500",
       category: "security"
     },
-   
     {
       icon: <Zap />,
-      title: "أداء سريع",
-      desc: "نظام سريع الاستجابة مع أوقات تحميل قياسية",
+      title: t('fastPerformance'),
+      desc: t('fastPerformanceDesc'),
       color: "from-orange-500 to-yellow-500",
       category: "performance"
     },
     {
       icon: <Database />,
-      title: "نسخ احتياطي",
-      desc: "نسخ احتياطي تلقائي وحماية للبيانات",
+      title: t('backupSystem'),
+      desc: t('backupSystemDesc'),
       color: "from-teal-500 to-blue-500",
       category: "security"
     },
     {
       icon: <Settings />,
-      title: "تخصيص متقدم",
-      desc: "خيارات تخصيص متقدمة للإدارة والمستخدمين",
+      title: t('advancedCustomization'),
+      desc: t('advancedCustomizationDesc'),
       color: "from-blue-500 to-cyan-500",
       category: "ui"
     },
     {
       icon: <Target />,
-      title: "نظام أهداف",
-      desc: "تحديد ومتابعة أهداف الطلاب والمؤسسة",
+      title: t('goalsSystem'),
+      desc: t('goalsSystemDesc'),
       color: "from-green-500 to-emerald-500",
       category: "analytics"
     }
   ];
 
   const categories = [
-    { id: 'all', label: 'جميع المميزات', count: features.length },
-    { id: 'ui', label: 'واجهة المستخدم', count: features.filter(f => f.category === 'ui').length },
-    { id: 'analytics', label: 'التقارير والإحصائيات', count: features.filter(f => f.category === 'analytics').length },
-    { id: 'lms', label: 'نظام إدارة التعلم', count: features.filter(f => f.category === 'lms').length },
-    { id: 'dashboard', label: 'لوحة التحكم', count: features.filter(f => f.category === 'dashboard').length },
-    { id: 'content', label: 'المحتوى', count: features.filter(f => f.category === 'content').length },
-    { id: 'hr', label: 'الموارد البشرية', count: features.filter(f => f.category === 'hr').length },
-    { id: 'users', label: 'إدارة المستخدمين', count: features.filter(f => f.category === 'users').length },
-    { id: 'security', label: 'الأمان', count: features.filter(f => f.category === 'security').length },
-    { id: 'mobile', label: 'الموبايل', count: features.filter(f => f.category === 'mobile').length },
-    { id: 'performance', label: 'الأداء', count: features.filter(f => f.category === 'performance').length }
+    { id: 'all', label: t('allFeatures'), count: features.length },
+    { id: 'ui', label: t('userInterface'), count: features.filter(f => f.category === 'ui').length },
+    { id: 'analytics', label: t('reportsAndStatistics'), count: features.filter(f => f.category === 'analytics').length },
+    { id: 'lms', label: t('learningManagementSystem'), count: features.filter(f => f.category === 'lms').length },
+    { id: 'dashboard', label: t('controlPanel'), count: features.filter(f => f.category === 'dashboard').length },
+    { id: 'content', label: t('content'), count: features.filter(f => f.category === 'content').length },
+    { id: 'hr', label: t('humanResources'), count: features.filter(f => f.category === 'hr').length },
+    { id: 'users', label: t('userManagement'), count: features.filter(f => f.category === 'users').length },
+    { id: 'security', label: t('security'), count: features.filter(f => f.category === 'security').length },
+    { id: 'performance', label: t('performance'), count: features.filter(f => f.category === 'performance').length }
   ];
 
-  // تصفية المميزات حسب التصنيف
   const filteredFeatures = features.filter(
     feature => activeCategory === 'all' || feature.category === activeCategory
   );
 
-  // حساب Pagination
   const totalPages = Math.ceil(filteredFeatures.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentFeatures = filteredFeatures.slice(startIndex, endIndex);
 
-  // تغيير الصفحة
   const handlePageChange = (page) => {
     setCurrentPage(page);
     window.scrollTo({
@@ -548,7 +588,6 @@ const FeaturesSection = () => {
     });
   };
 
-  // عند تغيير التصنيف، نعود للصفحة الأولى
   useEffect(() => {
     setCurrentPage(1);
   }, [activeCategory]);
@@ -559,11 +598,11 @@ const FeaturesSection = () => {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-purple-100 text-purple-600 px-6 py-3 rounded-full mb-6">
             <Sparkles />
-            <span className="font-bold">مميزات متقدمة</span>
+            <span className="font-bold">{t('advancedFeatures')}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-6 text-gray-800">المميزات والوظائف المتقدمة</h2>
+          <h2 className="text-4xl font-bold mb-6 text-gray-800">{t('advancedFeaturesAndFunctions')}</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            اكتشف مجموعة المميزات المتكاملة التي تجعل نظامنا الخيار الأمثل للمؤسسات التعليمية
+            {t('discoverIntegratedFeatures')}
           </p>
         </div>
 
@@ -595,8 +634,6 @@ const FeaturesSection = () => {
           ))}
         </div>
 
-     
-
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {currentFeatures.map((feature, idx) => (
@@ -617,7 +654,6 @@ const FeaturesSection = () => {
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-gray-800">{feature.title}</h3>
                 <p className="text-gray-600 leading-relaxed mb-6 flex-grow">{feature.desc}</p>
-               
               </div>
               
               {/* Hover Effect */}
@@ -632,7 +668,7 @@ const FeaturesSection = () => {
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               {/* Pagination Info */}
               <div className="text-gray-600">
-                الصفحة <span className="font-bold text-blue-600">{currentPage}</span> من <span className="font-bold text-purple-600">{totalPages}</span>
+                {t('page')} <span className="font-bold text-blue-600">{currentPage}</span> {t('of')} <span className="font-bold text-purple-600">{totalPages}</span>
               </div>
               
               {/* Pagination Buttons */}
@@ -670,7 +706,6 @@ const FeaturesSection = () => {
                   {/* Page Numbers */}
                   {[...Array(totalPages)].map((_, index) => {
                     const pageNumber = index + 1;
-                    // عرض 5 صفحات فقط حول الصفحة الحالية
                     if (
                       pageNumber === 1 ||
                       pageNumber === totalPages ||
@@ -731,13 +766,13 @@ const FeaturesSection = () => {
                   onClick={() => handlePageChange(1)}
                   className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
                 >
-                  الصفحة الأولى
+                  {t('firstPage')}
                 </button>
                 <button
                   onClick={() => handlePageChange(totalPages)}
                   className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
                 >
-                  الصفحة الأخيرة
+                  {t('lastPage')}
                 </button>
               </div>
             </div>
@@ -767,13 +802,13 @@ const FeaturesSection = () => {
             <div className="inline-flex p-4 bg-gray-100 rounded-full mb-4">
               <Filter className="text-gray-400" size={32} />
             </div>
-            <h3 className="text-xl font-bold text-gray-700 mb-2">لا توجد مميزات في هذا التصنيف</h3>
-            <p className="text-gray-500 mb-4">جرب تصنيفاً آخر أو اطلع على جميع المميزات</p>
+            <h3 className="text-xl font-bold text-gray-700 mb-2">{t('noFeaturesInThisCategory')}</h3>
+            <p className="text-gray-500 mb-4">{t('tryAnotherCategory')}</p>
             <button 
               onClick={() => setActiveCategory('all')}
               className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full font-medium hover:shadow-lg transition-shadow"
             >
-              عرض جميع المميزات
+              {t('showAllFeatures')}
             </button>
           </div>
         )}
@@ -783,18 +818,18 @@ const FeaturesSection = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div>
               <div className="text-3xl font-bold text-blue-600 mb-2">{features.length}</div>
-              <div className="text-gray-700 font-medium">ميزة متاحة</div>
-              <div className="text-sm text-gray-500">في النظام بالكامل</div>
+              <div className="text-gray-700 font-medium">{t('availableFeatures')}</div>
+              <div className="text-sm text-gray-500">{t('inEntireSystem')}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-purple-600 mb-2">{categories.length}</div>
-              <div className="text-gray-700 font-medium">تصنيف مختلف</div>
-              <div className="text-sm text-gray-500">لتنظيم المميزات</div>
+              <div className="text-gray-700 font-medium">{t('differentCategories')}</div>
+              <div className="text-sm text-gray-500">{t('toOrganizeFeatures')}</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-teal-600 mb-2">{itemsPerPage}</div>
-              <div className="text-gray-700 font-medium">ميزة في الصفحة</div>
-              <div className="text-sm text-gray-500">لتصفح أسهل</div>
+              <div className="text-gray-700 font-medium">{t('featuresPerPage')}</div>
+              <div className="text-sm text-gray-500">{t('forEasierBrowsing')}</div>
             </div>
           </div>
         </div>
@@ -806,45 +841,57 @@ const FeaturesSection = () => {
 // 5. Performance & SEO
 const PerformanceSection = () => {
   const [activeMetric, setActiveMetric] = useState(0);
+  const { t } = useTranslation();
 
   const metrics = [
     { 
       value: "99%", 
-      label: "سرعة التحميل", 
-      desc: "بفضل React SPA وتهيئة الخادم",
+      label: t('loadingSpeed'), 
+      desc: t('thanksToReactSPA'),
       icon: <Zap className="text-yellow-500" />
     },
     { 
       value: "A+", 
-      label: "تقييم SEO", 
-      desc: "تحسين كامل لمحركات البحث",
+      label: t('seoRating'), 
+      desc: t('fullSEOOptimization'),
       icon: <TrendingUp className="text-green-500" />
     },
     { 
       value: "100%", 
-      label: "توافق الأجهزة", 
-      desc: "تصميم متجاوب مع جميع الشاشات",
+      label: t('deviceCompatibility'), 
+      desc: t('responsiveDesignAllScreens'),
       icon: <Smartphone className="text-blue-500" />
     },
     { 
       value: "<100ms", 
-      label: "زمن الاستجابة", 
-      desc: "استجابة فورية للمستخدم",
+      label: t('responseTime'), 
+      desc: t('instantResponseToUser'),
       icon: <Clock className="text-purple-500" />
     }
   ];
 
   return (
-    <section id="performance" className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+<section
+  id="performance"
+  className="relative py-20 bg-gradient-to-b from-gray-900 to-black text-white overflow-hidden"
+>
+  <div
+    className="absolute inset-0 opacity-5 bg-contain bg-center bg-no-repeat pointer-events-none"
+    style={{
+      backgroundImage: `url(${LogoMogo})`,
+      backgroundSize: '100% auto',
+      backgroundRepeat: 'no-repeat',
+    }}
+  />
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-blue-500/20 text-blue-300 px-6 py-3 rounded-full mb-6">
             <Zap />
-            <span className="font-bold">أداء واستدامة فائقة</span>
+            <span className="font-bold">{t('highPerformanceAndSustainability')}</span>
           </div>
-          <h2 className="text-4xl font-bold mb-6">محافظة على الأداء والسرعة</h2>
+          <h2 className="text-4xl font-bold mb-6">{t('maintainingPerformanceAndSpeed')}</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            نظام مصمم للحفاظ على أعلى مستويات الأداء مع أفضل ممارسات SEO
+            {t('systemDesignedForPerformance')}
           </p>
         </div>
 
@@ -877,14 +924,14 @@ const PerformanceSection = () => {
           <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-gray-700">
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
               <TrendingUp className="text-green-400" />
-              تحسين SEO المتقدم
+              {t('advancedSEOSEOptimization')}
             </h3>
             <ul className="space-y-4">
               {[
-                "Meta Tags ديناميكية لكل صفحة",
-                "SEO-Friendly URLs قابلة للتخصيص",
-                "سرعة فهرسة عالية لمحركات البحث",
-                "تحميل سريع للمحتوى الأساسي"
+                t('dynamicMetaTagsForEachPage'),
+                t('seoFriendlyCustomizableURLs'),
+                t('highIndexingSpeedForSearchEngines'),
+                t('fastLoadingOfEssentialContent')
               ].map((item, idx) => (
                 <li key={idx} className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
@@ -897,14 +944,14 @@ const PerformanceSection = () => {
           <div className="bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-2xl p-8 border border-gray-700">
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
               <Zap className="text-yellow-400" />
-              أداء فائق السرعة
+              {t('ultraFastPerformance')}
             </h3>
             <ul className="space-y-4">
               {[
-                "Code Splitting للتحميل الذكي",
-                "Lazy Loading للصور والمكونات",
-                "Image Optimization تلقائي",
-                "Caching متقدم على جميع المستويات"
+                t('codeSplittingForSmartLoading'),
+                t('lazyLoadingForImagesAndComponents'),
+                t('automaticImageOptimization'),
+                t('advancedCachingAtAllLevels')
               ].map((item, idx) => (
                 <li key={idx} className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-cyan-500 rounded-full flex-shrink-0"></div>
@@ -914,14 +961,10 @@ const PerformanceSection = () => {
             </ul>
           </div>
         </div>
-
-     
       </div>
     </section>
   );
 };
-
-
 
 // Main Component
 const Optical = () => {
@@ -953,7 +996,6 @@ const Optical = () => {
       <IntegrationSection />
       <FeaturesSection />
       <PerformanceSection />
-     
       
       {/* Back to Top Button */}
       <button

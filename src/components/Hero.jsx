@@ -2,14 +2,32 @@ import React, { useState, useEffect, useRef } from "react";
 import { 
   Cpu, Database, Globe, LayoutDashboard, 
   Zap, ArrowRight, Link, Shield, Users,
-  BookOpen, BarChart, CreditCard, MessageSquare
+  BookOpen, BarChart, CreditCard, MessageSquare,
+  Languages
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const IntegratedSystemHero = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef(null);
+  
+  // استخدام react-i18next للترجمة
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+
+  const toggleLanguage = () => {
+    const newLang = currentLang === "ar" ? "en" : "ar";
+    i18n.changeLanguage(newLang);
+    
+    // تغيير اتجاه الصفحة
+    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+    document.documentElement.lang = newLang;
+    
+    // حفظ اللغة في localStorage
+    localStorage.setItem("lang", newLang);
+  };
   
   useEffect(() => {
     setIsAnimating(true);
@@ -47,24 +65,24 @@ const IntegratedSystemHero = () => {
   const features = [
     { 
       icon: <Users size={24} />, 
-      title: "إدارة موحدة", 
-      desc: "لجميع الأقسام والأنظمة",
+      title: t('unifiedManagement'), 
+      desc: t('forAllDepartments'),
       color: "from-blue-500/20 to-blue-600/20",
       border: "border-blue-500/30",
       hover: "hover:shadow-lg hover:shadow-blue-500/20"
     },
     { 
       icon: <BarChart size={24} />, 
-      title: "تقارير شاملة", 
-      desc: "بيانات حية ومحدثة",
+      title: t('comprehensiveReports'), 
+      desc: t('liveUpdatedData'),
       color: "from-green-500/20 to-green-600/20",
       border: "border-green-500/30",
       hover: "hover:shadow-lg hover:shadow-green-500/20"
     },
     { 
       icon: <Shield size={24} />, 
-      title: "أمان متكامل", 
-      desc: "حماية مركزية للبيانات",
+      title: t('integratedSecurity'), 
+      desc: t('centralDataProtection'),
       color: "from-purple-500/20 to-purple-600/20",
       border: "border-purple-500/30",
       hover: "hover:shadow-lg hover:shadow-purple-500/20"
@@ -100,6 +118,21 @@ const IntegratedSystemHero = () => {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 px-4 md:px-6 py-12 cursor-default"
     >
+      
+      {/* زر تبديل اللغة - يظهر مرة واحدة فقط */}
+      <button
+        onClick={toggleLanguage}
+        className="fixed top-6 left-6 z-50 flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 md:px-5 md:py-2.5 text-white hover:bg-white/20 hover:scale-105 transition-all duration-300 group shadow-lg"
+        aria-label={t('changeLanguage')}
+      >
+        <Languages size={20} className="group-hover:rotate-180 transition-transform duration-500" />
+        <span className="font-bold text-sm md:text-base">
+          {currentLang === "ar" ? t('english') : t('arabic')}
+        </span>
+        <div className="w-6 h-6 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center text-xs font-bold">
+          {currentLang === "ar" ? "EN" : "AR"}
+        </div>
+      </button>
       
       {/* Parallax Background Effect - يظهر فقط على الأجهزة الكبيرة */}
       {!isMobile && (
@@ -161,57 +194,73 @@ const IntegratedSystemHero = () => {
         <div className={`transition-all duration-1000 ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-500/20 to-purple-500/20 px-4 md:px-6 py-2 md:py-3 rounded-full mb-6 md:mb-8 backdrop-blur-sm border border-blue-500/30 hover:scale-105 transition-transform duration-300 cursor-pointer group">
             <Zap size={20} className="text-yellow-400 group-hover:animate-ping hidden md:block" />
-            <span className="text-white font-bold tracking-wider text-sm md:text-base">OPTICAL DIGITIZATION</span>
+            <span className="text-white font-bold tracking-wider text-sm md:text-base">{t('opticalDigitization')}</span>
           </div>
 
           <h1 className="text-white text-3xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 leading-tight">
-            <span className="block animate-fadeIn">التحول الرقمي المتكامل</span>
+            <span className="block animate-fadeIn">{t('integratedDigitalTransformation')}</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 animate-gradient bg-size-200">
-              بلوحة تحكم واحدة
+              {t('withSingleDashboard')}
             </span>
           </h1>
         </div>
 
-        {/* Main Selling Point */}
+        {/* Main Selling Point - عمودي */}
         <div className={`mb-8 md:mb-12 transition-all duration-1000 delay-300 ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 bg-gradient-to-r from-blue-900/30 via-purple-900/30 to-pink-900/30 p-4 md:p-8 rounded-2xl backdrop-blur-sm border border-gray-700/50 hover:border-gray-600/70 transition-all duration-300">
-            {[
-              { icon: <BookOpen size={28} className="text-blue-400" />, label: "LMS", bg: "bg-blue-500/20" },
-              { icon: <Database size={28} className="text-green-400" />, label: "ERP", bg: "bg-green-500/20" },
-              { icon: <Globe size={28} className="text-purple-400" />, label: "الموقع", bg: "bg-purple-500/20" }
-            ].map((item, index) => (
-              <React.Fragment key={index}>
-                <div className="flex items-center gap-2 md:gap-4 group">
-                  <div className={`${item.bg} p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 hidden md:flex`}>
+          <div className="flex flex-col items-center justify-center gap-4 md:gap-6 bg-gradient-to-r from-blue-900/30 via-purple-900/30 to-pink-900/30 p-6 md:p-8 rounded-2xl backdrop-blur-sm border border-gray-700/50 hover:border-gray-600/70 transition-all duration-300 mx-auto max-w-md">
+            
+            {/* الأنظمة الثلاثة في صف واحد */}
+            <div className="flex justify-center gap-4 md:gap-6">
+              {[
+                { icon: <BookOpen size={28} className="text-blue-400" />, label: t('lms'), bg: "bg-blue-500/20" },
+                { icon: <Database size={28} className="text-green-400" />, label: t('erp'), bg: "bg-green-500/20" },
+                { icon: <Globe size={28} className="text-purple-400" />, label: t('website'), bg: "bg-purple-500/20" }
+              ].map((item, index) => (
+                <div key={index} className="flex flex-col items-center gap-2">
+                  <div className={`${item.bg} p-3 rounded-xl`}>
                     {item.icon}
                   </div>
-                  <span className="text-white text-lg md:text-2xl font-bold">{item.label}</span>
+                  <span className="text-white font-bold text-sm md:text-base">{item.label}</span>
                 </div>
-                {index < 2 && (
-                  <Link size={20} className="text-yellow-400 animate-pulse hidden md:block" />
-                )}
-              </React.Fragment>
-            ))}
+              ))}
+            </div>
             
-            <ArrowRight size={20} className="text-white hidden md:block" />
+            {/* سهم لأسفل */}
+            <div className="text-yellow-400 animate-bounce-y">
+              <ArrowRight size={24} className="rotate-90" />
+            </div>
             
-            <div className="flex items-center gap-2 md:gap-4">
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-3 md:p-4 rounded-xl group hover:from-blue-500 hover:to-purple-500 transition-all duration-300 hidden md:block">
-                <LayoutDashboard size={24} className="text-white md:hidden" />
-                <LayoutDashboard size={32} className="text-white hidden md:block" />
+            {/* لوحة التحكم */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-xl">
+                <LayoutDashboard size={32} className="text-white" />
               </div>
-              <span className="text-white text-lg md:text-2xl font-bold">لوحة تحكم واحدة</span>
+              <span className="text-white text-xl font-bold">{t('singleDashboard')}</span>
+            </div>
+            
+            {/* النص التوضيحي */}
+            <div className="text-center mt-4">
+              <p className="text-gray-300 text-sm">
+                {t('integrationText')} 
+                <span className="text-blue-300 mx-1">{t('lms')}</span> + 
+                <span className="text-green-300 mx-1">{t('erp')}</span> + 
+                <span className="text-purple-300 mx-1">{t('website')}</span>
+                {" "}{t('inText')}{" "}
+                <span className="text-yellow-300">{t('singleDashboard')}</span>
+              </p>
             </div>
           </div>
           
           {/* نسخة مبسطة للموبايل */}
-          <div className="md:hidden mt-4">
-            <div className="text-white text-lg font-semibold">
-              <span className="text-blue-300">LMS</span> + 
-              <span className="text-green-300"> ERP</span> + 
-              <span className="text-purple-300"> الموقع</span>
-              <span className="mx-2">→</span>
-              <span className="text-yellow-300">لوحة تحكم واحدة</span>
+          <div className="md:hidden mt-6">
+            <div className="flex flex-col items-center gap-2 text-white text-lg font-semibold">
+              <div className="flex gap-2">
+                <span className="text-blue-300">{t('lms')}</span>
+                <span className="text-green-300">{t('erp')}</span>
+                <span className="text-purple-300">{t('website')}</span>
+              </div>
+              <div className="text-yellow-400">↓</div>
+              <div className="text-yellow-300">{t('singleDashboard')}</div>
             </div>
           </div>
         </div>
@@ -219,26 +268,26 @@ const IntegratedSystemHero = () => {
         {/* Description */}
         <div className={`mb-8 md:mb-12 transition-all duration-1000 delay-500 ${isAnimating ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <p className="text-gray-300 text-base md:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed">
-            نظام إدارة شامل يجمع كل الأنظمة الأساسية في مكان واحد
+            {t('comprehensiveSystem')}
             <br className="hidden md:block" />
-            <div className="flex flex-wrap justify-center gap-2 md:gap-0 mt-2 md:mt-0">
+            <div className="flex flex-wrap justify-center gap-3 md:gap-4 mt-4 md:mt-6">
               <span className="relative group cursor-pointer">
-                <span className="text-blue-300 transition-all duration-300 group-hover:text-blue-200 text-sm md:text-base">إدارة الطلاب</span>
+                <span className="text-blue-300 transition-all duration-300 group-hover:text-blue-200 text-sm md:text-base">{t('studentManagement')}</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-300 group-hover:w-full transition-all duration-300 hidden md:block"></span>
               </span>
-              <span className="hidden md:inline mx-2">•</span>
+              <span className="text-gray-400 hidden md:inline">•</span>
               <span className="relative group cursor-pointer">
-                <span className="text-green-300 transition-all duration-300 group-hover:text-green-200 text-sm md:text-base">الشؤون المالية</span>
+                <span className="text-green-300 transition-all duration-300 group-hover:text-green-200 text-sm md:text-base">{t('financialAffairs')}</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-green-300 group-hover:w-full transition-all duration-300 hidden md:block"></span>
               </span>
-              <span className="hidden md:inline mx-2">•</span>
+              <span className="text-gray-400 hidden md:inline">•</span>
               <span className="relative group cursor-pointer">
-                <span className="text-purple-300 transition-all duration-300 group-hover:text-purple-200 text-sm md:text-base">المحتوى التعليمي</span>
+                <span className="text-purple-300 transition-all duration-300 group-hover:text-purple-200 text-sm md:text-base">{t('educationalContent')}</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-300 group-hover:w-full transition-all duration-300 hidden md:block"></span>
               </span>
-              <span className="hidden md:inline mx-2">•</span>
+              <span className="text-gray-400 hidden md:inline">•</span>
               <span className="relative group cursor-pointer">
-                <span className="text-yellow-300 transition-all duration-300 group-hover:text-yellow-200 text-sm md:text-base">الموقع الإلكتروني</span>
+                <span className="text-yellow-300 transition-all duration-300 group-hover:text-yellow-200 text-sm md:text-base">{t('websiteManagement')}</span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-300 hidden md:block"></span>
               </span>
             </div>
@@ -291,6 +340,11 @@ const IntegratedSystemHero = () => {
           50% { transform: translateX(5px); }
         }
         
+        @keyframes bounce-y {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(5px); }
+        }
+        
         .animate-float {
           animation: float 6s ease-in-out infinite;
         }
@@ -314,6 +368,10 @@ const IntegratedSystemHero = () => {
         
         .animate-bounce-x {
           animation: bounce-x 2s infinite;
+        }
+        
+        .animate-bounce-y {
+          animation: bounce-y 2s infinite;
         }
         
         /* Responsive improvements */
